@@ -2,9 +2,5 @@
 - hosts: homeserver
   become: yes
 
-  vars_files:
-    - vars/secrets.yml
-
   tasks:
-    - name: Update packages.
-      apt: update_cache=yes upgrade=yes
+  - import_tasks: tasks/setup.yml

@@ -1,0 +1,21 @@
+- name: Update packages.
+  apt: update_cache=yes upgrade=yes cache_valid_time=3600
+
+- name: Install packages.
+  package:
+    name: "{{ packages }}"
+    state: latest
+    
+- name: Disable SSH password auth.
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regex: "^#Password Authentication yes"
+    line: "Password Authentication no"
+  register: sshd_config
+
+- name: Enable passwordless sudo for " {{ username }} ".
+  lineinfile:
+    dest: /etc/sudoers
+    regex: "^%wheel"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
