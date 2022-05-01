@@ -1,6 +1,15 @@
 ---
-- hosts: homeserver
+- hosts: all
   become: yes
 
+  vars_files:
+    - group_vars/all/vars.yml
+    - group_vars/all/docker.yml
+    - group_vars/all/security.yml
+    
   tasks:
   - import_tasks: tasks/setup.yml
+
+  roles:
+    - role: geerlingguy.security
+    - role: geerlingguy.docker

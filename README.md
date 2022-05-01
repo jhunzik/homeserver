@@ -19,3 +19,9 @@ This repo contains an Ansible playbook that configures my home server.
 
 ### Utilities
 - [ ] Watchtower
+
+## Usage
+Add the following entry to your `/etc/hosts` file:
+```
+homeserver  <server-ip>
+```
